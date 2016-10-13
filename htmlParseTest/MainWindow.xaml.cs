@@ -145,7 +145,7 @@ namespace htmlParseTest
 
                 for (int index1 = 1; index1 < items.Count() - 1; index1++) //yariyillar
                 {
-                    Yariyil y = new Yariyil();
+                    //Yariyil y = new Yariyil();
                     List<Ders> dersler = new List<Ders>();
                     var i = items[index1].Cq();
                     i = i.Children("tr");
@@ -153,21 +153,21 @@ namespace htmlParseTest
                     //
                     for (int index = 0; index < i.Count(); index++)
                     {
-                        Ders ders = new Ders();
+                        //Ders ders = new Ders();
                         var i1 = i[index];
                         var i2 = i1.Cq();
                         i2 = i2.Children("td");
-                        ders.DersKodu = WebUtility.HtmlDecode(i2[0].InnerText);
-                        ders.DersAdi = WebUtility.HtmlDecode(i2[1].InnerText);
-                        ders.Kredi = WebUtility.HtmlDecode(i2[2].InnerText);
-                        ders.AKTS = WebUtility.HtmlDecode(i2[3].InnerText);
-                        ders.Katsayi = WebUtility.HtmlDecode(i2[4].InnerText);
-                        ders.BasariPuan = WebUtility.HtmlDecode(i2[5].InnerText);
+                        //ders.DersKodu = WebUtility.HtmlDecode(i2[0].InnerText);
+                        //ders.DersAdi = WebUtility.HtmlDecode(i2[1].InnerText);
+                        //ders.Kredi = WebUtility.HtmlDecode(i2[2].InnerText);
+                        //ders.AKTS = WebUtility.HtmlDecode(i2[3].InnerText);
+                        //ders.Katsayi = WebUtility.HtmlDecode(i2[4].InnerText);
+                        //ders.BasariPuan = WebUtility.HtmlDecode(i2[5].InnerText);
 
                         AçılanDers AD = new AçılanDers();
                         AD.Id = AçılanDersler.Count;
                         AD.Kod = WebUtility.HtmlDecode(i2[0].InnerText);
-                        AD.DersAdi = ders.DersAdi;
+                        AD.DersAdi = WebUtility.HtmlDecode(i2[1].InnerText);
                         AD.Yariyil = index1.ToString();
                         AD.YılDers = Convert.ToInt32(o.KayitTarihi.Split('.')[2]) + ((index1 - 1)/ 2);
 
@@ -194,20 +194,20 @@ namespace htmlParseTest
                         Not not = new Not();
                         not.Id = Notlar.Count;
                         not.AD_OgrenciId = ado.Id;
-                        not.Vize = NotHesapla(ders.BasariPuan);
-                        not.Final = NotHesapla(ders.BasariPuan);
-                        not.HarfNotu = ders.BasariPuan;
+                        not.Vize = NotHesapla(WebUtility.HtmlDecode(i2[5].InnerText));
+                        not.Final = NotHesapla(WebUtility.HtmlDecode(i2[5].InnerText));
+                        not.HarfNotu = WebUtility.HtmlDecode(i2[5].InnerText);
                         not.Büt = 0;
                         not.YilNotu = Convert.ToInt32(not.Vize * 0.4 + not.Final * 0.6);
                         not.OtomatikMi = true;
                         Notlar.Add(not);
 
-                        dersler.Add(ders);
+                        //dersler.Add(ders);
                     }
-                    y.Dersler = dersler;
-                    o.Yariyillar.Add(y);
+                    //y.Dersler = dersler;
+                    //o.Yariyillar.Add(y);
                 }
-                ogrenciler.Add(o);
+                //ogrenciler.Add(o);
             }
             using (var writer = new StreamWriter(new FileStream("AçılanDersler.txt", FileMode.Create), Encoding.GetEncoding("iso-8859-9")))
             {
