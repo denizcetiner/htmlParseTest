@@ -188,6 +188,16 @@ namespace htmlParseTest
                             ad.DersAdi = "Atatürk İlkeleri ve İnkilap Tarihi I";
                             ad.Kod = "14ATA101";
                         }
+                        else if (ad.DersAdi == "Atatürk İlkeleri ve İnkılap Tarihi I")
+                        {
+                            ad.DersAdi = "Atatürk İlkeleri ve İnkilap Tarihi I";
+                            ad.Kod = "14ATA101";
+                        }
+                        else if (ad.DersAdi == "Matematik")
+                        {
+                            ad.DersAdi = "Matematik I";
+                            ad.Kod = "\"14BLM103 \"";
+                        }
                         else if (ad.DersAdi == "İngilizce I")
                         {
                             ad.DersAdi = "Yabancı Dil I (İngilizce)";
