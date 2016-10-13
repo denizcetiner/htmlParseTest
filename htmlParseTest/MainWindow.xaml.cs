@@ -169,7 +169,7 @@ namespace htmlParseTest
                         AD.Kod = WebUtility.HtmlDecode(i2[0].InnerText);
                         AD.DersAdi = ders.DersAdi;
                         AD.Yariyil = index1.ToString();
-                        AD.YılDers = Convert.ToInt32(o.KayitTarihi.Split('.')[2]) + (index1 / 2);
+                        AD.YılDers = Convert.ToInt32(o.KayitTarihi.Split('.')[2]) + ((index1 - 1)/ 2);
 
                         //AD.VizeOrani1 = 0.4;
                         //AD.VizeOrani2 = 0.0;
