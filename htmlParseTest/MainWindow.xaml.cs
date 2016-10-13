@@ -59,7 +59,7 @@ namespace htmlParseTest
 
         public int NotHesapla(String not)
         {
-            Random r = new Random(Convert.ToInt32(DateTime.Now.Ticks));
+            Random r = new Random(DateTime.Now.Millisecond);
             if(not == "AA")
             {
                 return r.Next(90, 100);
