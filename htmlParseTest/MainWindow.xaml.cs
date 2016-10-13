@@ -169,12 +169,12 @@ namespace htmlParseTest
                         //ders.Katsayi = WebUtility.HtmlDecode(i2[4].InnerText);
                         //ders.BasariPuan = WebUtility.HtmlDecode(i2[5].InnerText);
 
-                        AçılanDers AD = new AçılanDers();
-                        AD.Id = AçılanDersler.Count;
-                        AD.Kod = WebUtility.HtmlDecode(i2[0].InnerText);
+                        AçılanDers ad = new AçılanDers();
+                        ad.Id = AçılanDersler.Count;
+                        ad.Kod = WebUtility.HtmlDecode(i2[0].InnerText);
                         try
                         {
-                            AD.DersAdi = WebUtility.HtmlDecode(i2[1].InnerText); 
+                            ad.DersAdi = WebUtility.HtmlDecode(i2[1].InnerText); 
                             //bazı kişilerde yarıyıl tablosunda ders bulunmayabiliyor
                             //örneğin 7.yarıyıl boş ama 8.yarıyıl dolu
                             //öyle tabloları atlamak için koydum
@@ -184,8 +184,49 @@ namespace htmlParseTest
                             continue;
                         }
 
-                        AD.Yariyil = index1.ToString();
-                        AD.YılDers = Convert.ToInt32(o.KayitTarihi.Split('.')[2]) + ((index1 - 1)/ 2);
+                        ad.Yariyil = index1.ToString();
+                        ad.YılDers = Convert.ToInt32(o.KayitTarihi.Split('.')[2]) + ((index1 - 1)/ 2);
+
+                        if (ad.DersAdi == "Algoritma  ve Programlama ")
+                        {
+                            ad.DersAdi = "Algoritma ve Programlama";
+                            ad.Kod = "14BLM105";
+                        }
+                        else if (ad.DersAdi == "Atatürk  İlkeleri ve İnkılap Tarihi I")
+                        {
+                            ad.DersAdi = "Atatürk İlkeleri ve İnkilap Tarihi I";
+                            ad.Kod = "14ATA101";
+                        }
+                        else if (ad.DersAdi == "İngilizce I")
+                        {
+                            ad.DersAdi = "Yabancı Dil I (İngilizce)";
+                            ad.Kod = "14YDİ101";
+                        }
+                        else if (ad.DersAdi == "Fizik I")
+                        {
+                            ad.DersAdi = "Genel Fizik I";
+                            ad.Kod = "14BLM101";
+                        }
+                        else if (ad.DersAdi == "Yabancı Dil (İngilizce) I")
+                        {
+                            ad.DersAdi = "Yabancı Dil I (İngilizce)";
+                            ad.Kod = "14YDİ101";
+                        }
+                        else if (ad.DersAdi == "İngilizce II")
+                        {
+                            ad.DersAdi = "Yabancı Dil II (İngilizce)";
+                            ad.Kod = "14YDİ102";
+                        }
+                        else if (ad.DersAdi == "Fizik II")
+                        {
+                            ad.DersAdi = "Genel Fizik II";
+                            ad.Kod = "14BLM102";
+                        }
+                        else if (ad.DersAdi == "Yabancı Dil (İngilizce) II")
+                        {
+                            ad.DersAdi = "Yabancı Dil II (İngilizce)";
+                            ad.Kod = "14YDİ102";
+                        }
 
                         //AD.VizeOrani1 = 0.4;
                         //AD.VizeOrani2 = 0.0;
@@ -194,15 +235,15 @@ namespace htmlParseTest
                         AD_Ogrenci ado = new AD_Ogrenci();
                         ado.Id = AD_Ogrenciler.Count;
                         ado.OgrenciId = o.OgrenciNo;
-                        ado.AçılanDersId = AD.Id;
+                        ado.AçılanDersId = ad.Id;
 
-                        if (!AçılanDersler.Any(ad=> ad.Kod == AD.Kod && ad.YılDers == AD.YılDers))
+                        if (!AçılanDersler.Any(AD=> AD.Kod == ad.Kod && AD.YılDers == ad.YılDers))
                         {
-                            AçılanDersler.Add(AD);
+                            AçılanDersler.Add(ad);
                         }
                         else
                         {
-                            ado.AçılanDersId = AçılanDersler.First(ad => ad.Kod == AD.Kod && ad.YılDers == AD.YılDers).Id;
+                            ado.AçılanDersId = AçılanDersler.First(AD => AD.Kod == ad.Kod && AD.YılDers == ad.YılDers).Id;
                         }
                         
                         AD_Ogrenciler.Add(ado);
@@ -290,11 +331,12 @@ namespace htmlParseTest
                 writer.Write("Id,DersKodu,DersAdi,AkademisyenId,Yariyil,YilDers\n");
                 foreach (var ad in AçılanDersler)
                 {
-                    RegexOptions options = RegexOptions.None;
-                    Regex regex = new Regex("[ ]{2,}", options);
-                    ad.DersAdi = regex.Replace(ad.DersAdi, " ");
+                //    RegexOptions options = RegexOptions.None;
+                //    Regex regex = new Regex("[ ]{2,}", options);
+                //    ad.DersAdi = regex.Replace(ad.DersAdi, " ");
                     writer.Write(ad.Id);
                     writer.Write("," + ad.Kod);
+                    
                     writer.Write("," + ad.DersAdi);
                     writer.Write("," + ad.OgretmenId);
                     writer.Write("," + ad.Yariyil);
@@ -363,7 +405,7 @@ namespace htmlParseTest
                 String[] columns = row.Split(',');
                 AçılanDersler.ForEach(u =>
                 {
-                    if (u.DersAdi == columns[1])
+                    if (u.Kod == columns[0])
                     {
                         if (columns[2] == "")
                         {
