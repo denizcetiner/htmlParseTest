@@ -296,7 +296,15 @@ namespace htmlParseTest
                     writer.Write("," + ad.DersAdi);
                     writer.Write("," + ad.OgretmenId);
                     writer.Write("," + ad.Yariyil);
-                    writer.Write("," + ad.YılDers);
+                    if(ad.YılDers == 2016)
+                    {
+                        writer.Write("," + 1900);
+                    }
+                    else
+                    {
+                        writer.Write("," + ad.YılDers);
+                    }
+                    
                     writer.Write("\n");
 
                 }
