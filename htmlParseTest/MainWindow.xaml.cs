@@ -167,7 +167,18 @@ namespace htmlParseTest
                         AçılanDers AD = new AçılanDers();
                         AD.Id = AçılanDersler.Count;
                         AD.Kod = WebUtility.HtmlDecode(i2[0].InnerText);
-                        AD.DersAdi = WebUtility.HtmlDecode(i2[1].InnerText);
+                        try
+                        {
+                            AD.DersAdi = WebUtility.HtmlDecode(i2[1].InnerText); 
+                            //bazı kişilerde yarıyıl tablosunda ders bulunmayabiliyor
+                            //örneğin 7.yarıyıl boş ama 8.yarıyıl dolu
+                            //öyle tabloları atlamak için koydum
+                        }
+                        catch(Exception ex)
+                        {
+                            continue;
+                        }
+
                         AD.Yariyil = index1.ToString();
                         AD.YılDers = Convert.ToInt32(o.KayitTarihi.Split('.')[2]) + ((index1 - 1)/ 2);
 
