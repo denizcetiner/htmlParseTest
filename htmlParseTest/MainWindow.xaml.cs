@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using System.Net;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace htmlParseTest
 {
@@ -125,8 +126,6 @@ namespace htmlParseTest
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            
-            
             foreach(var html in htmls)
             {
                 Ogrenci o = new Ogrenci();
@@ -291,7 +290,9 @@ namespace htmlParseTest
                 writer.Write("Id,DersKodu,DersAdi,AkademisyenId,Yariyil,YilDers\n");
                 foreach (var ad in AçılanDersler)
                 {
-
+                    RegexOptions options = RegexOptions.None;
+                    Regex regex = new Regex("[ ]{2,}", options);
+                    ad.DersAdi = regex.Replace(ad.DersAdi, " ");
                     writer.Write(ad.Id);
                     writer.Write("," + ad.Kod);
                     writer.Write("," + ad.DersAdi);
