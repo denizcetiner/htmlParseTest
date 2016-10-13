@@ -29,7 +29,8 @@ namespace htmlParseTest
         public List<String> files = new List<string>();
         public List<String> htmls = new List<string>();
         public List<Ogrenci> ogrenciler = new List<Ogrenci>();
-        String excelFilename;
+        String csv1Filename;
+        String csv2Filename;
         List<AçılanDers> AçılanDersler = new List<AçılanDers>();
         List<Not> Notlar = new List<Not>();
         List<AD_Ogrenci> AD_Ogrenciler = new List<AD_Ogrenci>();
@@ -262,13 +263,13 @@ namespace htmlParseTest
 
             if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                excelFilename = file.FileName;
+                csv1Filename = file.FileName;
             }
         }
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            List<String> rows = File.ReadAllLines(excelFilename).ToList();
+            List<String> rows = File.ReadAllLines(csv1Filename).ToList();
             for(int i = 1; i < rows.Count; i++)
             {
                 String row = WebUtility.HtmlDecode(rows[i]);
@@ -337,5 +338,45 @@ namespace htmlParseTest
                 }
             }
         }
+
+        private void button5_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            file.FilterIndex = 2;
+            file.RestoreDirectory = true;
+            file.CheckFileExists = false;
+
+
+            if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                csv2Filename = file.FileName;
+            }
+        }
+
+        private void button6_Click(object sender, RoutedEventArgs e)
+        {
+            List<String> rows = File.ReadAllLines(csv2Filename).ToList();
+            for (int i = 0; i < rows.Count; i++)
+            {
+                String row = WebUtility.HtmlDecode(rows[i]);
+                String[] columns = row.Split(',');
+                AçılanDersler.ForEach(u =>
+                {
+                    if (u.DersAdi == columns[1])
+                    {
+                        if (columns[2] == "")
+                        {
+                            u.OgretmenId = "-1";
+                        }
+                        else
+                        {
+                            u.OgretmenId = columns[2].Trim();
+                        }
+                    }
+                });
+            }
+        }
+
+        
     }
 }

@@ -11,7 +11,9 @@
         <Button x:Name="button1" Content="Verileri çek" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="160" Click="button1_Click"/>
         <Button x:Name="button2" Content="dersler csv seç" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="160" Click="button2_Click"/>
         <Button x:Name="button3" Content="ders kodlarını düzenle" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="160" Click="button3_Click"/>
-        <Button x:Name="button4" Content="Dosyalara yaz" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="160" Click="button4_Click"/>
+        <Button x:Name="button4" Content="Dosyalara yaz" HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top" Width="160" Click="button4_Click"/>
+        <Button x:Name="button5" Content="Öğretmen id tablosu seç" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="160" Click="button5_Click"/>
+        <Button x:Name="button6" Content="Öğretmen id'leri ekle" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="160" Click="button6_Click"/>
 
     </Grid>
 </Window>
