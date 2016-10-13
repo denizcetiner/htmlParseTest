@@ -11,6 +11,7 @@ namespace htmlParseTest
         public int Id { get; set; }
         //public int DersId { get; set; }
         public String Kod { get; set; }
+        public String DersAdi { get; set; }
         //public double VizeOrani1 { get; set; }
         //public double VizeOrani2 { get; set; }
         //public double FinalOrani { get; set; }

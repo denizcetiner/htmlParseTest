@@ -167,6 +167,7 @@ namespace htmlParseTest
                         AçılanDers AD = new AçılanDers();
                         AD.Id = AçılanDersler.Count;
                         AD.Kod = WebUtility.HtmlDecode(i2[0].InnerText);
+                        AD.DersAdi = ders.DersAdi;
                         AD.Yariyil = index1.ToString();
                         AD.YılDers = Convert.ToInt32(o.KayitTarihi.Split('.')[2]) + (index1 / 2);
 
@@ -210,12 +211,13 @@ namespace htmlParseTest
             }
             using (var writer = new StreamWriter(new FileStream("AçılanDersler.txt", FileMode.Create), Encoding.GetEncoding("iso-8859-9")))
             {
-                writer.Write("Id,DersKodu,AkademisyenId,Yariyil,YilDers\n");
+                writer.Write("Id,DersKodu,DersAdi,AkademisyenId,Yariyil,YilDers\n");
                 foreach (var ad in AçılanDersler)
                 {
 
                     writer.Write(ad.Id);
                     writer.Write("," + ad.Kod);
+                    writer.Write("," + ad.DersAdi);
                     writer.Write("," + ad.OgretmenId);
                     writer.Write("," + ad.Yariyil);
                     writer.Write("," + ad.YılDers);
