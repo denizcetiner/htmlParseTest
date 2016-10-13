@@ -191,7 +191,7 @@ namespace htmlParseTest
                         else if (ad.DersAdi == "İngilizce I")
                         {
                             ad.DersAdi = "Yabancı Dil I (İngilizce)";
-                            ad.Kod = "14YDİ101";
+                            ad.Kod = "\"14YDİ101 \"";
                         }
                         else if (ad.DersAdi == "Fizik I")
                         {
@@ -201,7 +201,7 @@ namespace htmlParseTest
                         else if (ad.DersAdi == "Yabancı Dil (İngilizce) I")
                         {
                             ad.DersAdi = "Yabancı Dil I (İngilizce)";
-                            ad.Kod = "14YDİ101";
+                            ad.Kod = "\"14YDİ101 \"";
                         }
                         else if (ad.DersAdi == "İngilizce II")
                         {
@@ -281,7 +281,7 @@ namespace htmlParseTest
                 {
                     if(u.DersAdi == columns[1])
                     {
-                        u.Kod = columns[0].Trim();
+                        u.Kod = columns[0];
                     }
                 });
             }
