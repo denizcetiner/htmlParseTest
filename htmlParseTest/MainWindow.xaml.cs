@@ -150,24 +150,15 @@ namespace htmlParseTest
 
                 for (int index1 = 1; index1 < items.Count() - 1; index1++) //yariyillar
                 {
-                    //Yariyil y = new Yariyil();
-                    //List<Ders> dersler = new List<Ders>();
                     var i = items[index1].Cq();
                     i = i.Children("tr");
 
                     //
                     for (int index = 0; index < i.Count(); index++)
                     {
-                        //Ders ders = new Ders();
                         var i1 = i[index];
                         var i2 = i1.Cq();
                         i2 = i2.Children("td");
-                        //ders.DersKodu = WebUtility.HtmlDecode(i2[0].InnerText);
-                        //ders.DersAdi = WebUtility.HtmlDecode(i2[1].InnerText);
-                        //ders.Kredi = WebUtility.HtmlDecode(i2[2].InnerText);
-                        //ders.AKTS = WebUtility.HtmlDecode(i2[3].InnerText);
-                        //ders.Katsayi = WebUtility.HtmlDecode(i2[4].InnerText);
-                        //ders.BasariPuan = WebUtility.HtmlDecode(i2[5].InnerText);
 
                         AçılanDers ad = new AçılanDers();
                         ad.Id = AçılanDersler.Count;
@@ -227,10 +218,11 @@ namespace htmlParseTest
                             ad.DersAdi = "Yabancı Dil II (İngilizce)";
                             ad.Kod = "14YDİ102";
                         }
-
-                        //AD.VizeOrani1 = 0.4;
-                        //AD.VizeOrani2 = 0.0;
-                        //AD.FinalOrani = 0.6;
+                        else if (ad.DersAdi == "Yapısal Programlama")
+                        {
+                            ad.DersAdi = "Yabancı Dil II (İngilizce)";
+                            ad.Kod = "14YDİ102";
+                        }
 
                         AD_Ogrenci ado = new AD_Ogrenci();
                         ado.Id = AD_Ogrenciler.Count;
@@ -258,38 +250,9 @@ namespace htmlParseTest
                         not.YilNotu = Convert.ToInt32(not.Vize * 0.4 + not.Final * 0.6);
                         not.OtomatikMi = true;
                         Notlar.Add(not);
-
-                        //dersler.Add(ders);
                     }
-                    //y.Dersler = dersler;
-                    //o.Yariyillar.Add(y);
                 }
-                //ogrenciler.Add(o);
             }
-            
-
-            //using (var writer = new StreamWriter(new FileStream("asdf.txt", FileMode.Create), Encoding.GetEncoding("iso-8859-9")))
-            //{
-            //    writer.Write("ÖğrenciNo,Yarıyıl,DersKodu,Kredi,AKTS,Katsayi,BaşarıPuanı\n");
-            //    foreach (var ogrenci in ogrenciler)
-            //    {
-            //        for(int index = 0; index < ogrenci.Yariyillar.Count; index++)
-            //        {
-            //            foreach (var ders in ogrenci.Yariyillar[index].Dersler)
-            //            {
-            //                writer.Write(ogrenci.OgrenciNo);
-            //                writer.Write("," + (index + 1));
-            //                writer.Write("," + ders.DersKodu);
-            //                writer.Write(",\"" + ders.Kredi + "\"");
-            //                writer.Write(",\"" + ders.AKTS + "\"");
-            //                writer.Write(",\"" + ders.Katsayi + "\"");
-            //                writer.Write("," + ders.BasariPuan);
-            //                writer.Write("\n");
-            //            }
-            //            writer.Write("\n");
-            //        }
-            //    }
-            //}
 
         }
 
@@ -331,9 +294,6 @@ namespace htmlParseTest
                 writer.Write("Id,DersKodu,DersAdi,AkademisyenId,Yariyil,YilDers\n");
                 foreach (var ad in AçılanDersler)
                 {
-                //    RegexOptions options = RegexOptions.None;
-                //    Regex regex = new Regex("[ ]{2,}", options);
-                //    ad.DersAdi = regex.Replace(ad.DersAdi, " ");
                     writer.Write(ad.Id);
                     writer.Write("," + ad.Kod);
                     
