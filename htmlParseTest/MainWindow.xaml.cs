@@ -16,6 +16,8 @@ using CsQuery;
 using System.IO;
 using System.Windows.Forms;
 using System.Net;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.ComponentModel;
 
 namespace htmlParseTest
 {
@@ -27,6 +29,10 @@ namespace htmlParseTest
         public List<String> files = new List<string>();
         public List<String> htmls = new List<string>();
         public List<Ogrenci> ogrenciler = new List<Ogrenci>();
+        String excelFilename;
+        List<AçılanDers> AçılanDersler = new List<AçılanDers>();
+        List<Not> Notlar = new List<Not>();
+        List<AD_Ogrenci> AD_Ogrenciler = new List<AD_Ogrenci>();
 
         public MainWindow()
         {
@@ -118,9 +124,8 @@ namespace htmlParseTest
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            List<AçılanDers> AçılanDersler = new List<AçılanDers>();
-            List<Not> Notlar = new List<Not>();
-            List<AD_Ogrenci> AD_Ogrenciler = new List<AD_Ogrenci>();
+            
+            
             foreach(var html in htmls)
             {
                 Ogrenci o = new Ogrenci();
@@ -146,7 +151,7 @@ namespace htmlParseTest
                 for (int index1 = 1; index1 < items.Count() - 1; index1++) //yariyillar
                 {
                     //Yariyil y = new Yariyil();
-                    List<Ders> dersler = new List<Ders>();
+                    //List<Ders> dersler = new List<Ders>();
                     var i = items[index1].Cq();
                     i = i.Children("tr");
 
@@ -220,6 +225,66 @@ namespace htmlParseTest
                 }
                 //ogrenciler.Add(o);
             }
+            
+
+            //using (var writer = new StreamWriter(new FileStream("asdf.txt", FileMode.Create), Encoding.GetEncoding("iso-8859-9")))
+            //{
+            //    writer.Write("ÖğrenciNo,Yarıyıl,DersKodu,Kredi,AKTS,Katsayi,BaşarıPuanı\n");
+            //    foreach (var ogrenci in ogrenciler)
+            //    {
+            //        for(int index = 0; index < ogrenci.Yariyillar.Count; index++)
+            //        {
+            //            foreach (var ders in ogrenci.Yariyillar[index].Dersler)
+            //            {
+            //                writer.Write(ogrenci.OgrenciNo);
+            //                writer.Write("," + (index + 1));
+            //                writer.Write("," + ders.DersKodu);
+            //                writer.Write(",\"" + ders.Kredi + "\"");
+            //                writer.Write(",\"" + ders.AKTS + "\"");
+            //                writer.Write(",\"" + ders.Katsayi + "\"");
+            //                writer.Write("," + ders.BasariPuan);
+            //                writer.Write("\n");
+            //            }
+            //            writer.Write("\n");
+            //        }
+            //    }
+            //}
+
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            file.FilterIndex = 2;
+            file.RestoreDirectory = true;
+            file.CheckFileExists = false;
+            
+
+            if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                excelFilename = file.FileName;
+            }
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            List<String> rows = File.ReadAllLines(excelFilename).ToList();
+            for(int i = 1; i < rows.Count; i++)
+            {
+                String row = WebUtility.HtmlDecode(rows[i]);
+                String[] columns = row.Split(',');
+                AçılanDersler.ForEach(u =>
+                {
+                    if(u.DersAdi == columns[1])
+                    {
+                        u.Kod = columns[0].Trim();
+                    }
+                });
+            }
+        }
+
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
             using (var writer = new StreamWriter(new FileStream("AçılanDersler.txt", FileMode.Create), Encoding.GetEncoding("iso-8859-9")))
             {
                 writer.Write("Id,DersKodu,DersAdi,AkademisyenId,Yariyil,YilDers\n");
@@ -257,36 +322,12 @@ namespace htmlParseTest
                 writer.Write("KayıtId,ADId,OgrId\n");
                 foreach (var kayıt in AD_Ogrenciler)
                 {
-                            writer.Write(kayıt.Id);
-                            writer.Write("," + kayıt.AçılanDersId);
-                            writer.Write("," + kayıt.OgrenciId);
-                            writer.Write("\n");
+                    writer.Write(kayıt.Id);
+                    writer.Write("," + kayıt.AçılanDersId);
+                    writer.Write("," + kayıt.OgrenciId);
+                    writer.Write("\n");
                 }
             }
-
-            //using (var writer = new StreamWriter(new FileStream("asdf.txt", FileMode.Create), Encoding.GetEncoding("iso-8859-9")))
-            //{
-            //    writer.Write("ÖğrenciNo,Yarıyıl,DersKodu,Kredi,AKTS,Katsayi,BaşarıPuanı\n");
-            //    foreach (var ogrenci in ogrenciler)
-            //    {
-            //        for(int index = 0; index < ogrenci.Yariyillar.Count; index++)
-            //        {
-            //            foreach (var ders in ogrenci.Yariyillar[index].Dersler)
-            //            {
-            //                writer.Write(ogrenci.OgrenciNo);
-            //                writer.Write("," + (index + 1));
-            //                writer.Write("," + ders.DersKodu);
-            //                writer.Write(",\"" + ders.Kredi + "\"");
-            //                writer.Write(",\"" + ders.AKTS + "\"");
-            //                writer.Write(",\"" + ders.Katsayi + "\"");
-            //                writer.Write("," + ders.BasariPuan);
-            //                writer.Write("\n");
-            //            }
-            //            writer.Write("\n");
-            //        }
-            //    }
-            //}
-
         }
     }
 }
