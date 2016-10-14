@@ -193,6 +193,11 @@ namespace htmlParseTest
                             ad.DersAdi = "Atatürk İlkeleri ve İnkilap Tarihi I";
                             ad.Kod = "14ATA101";
                         }
+                        else if (ad.DersAdi == "Algoritma Analizi")
+                        {
+                            ad.DersAdi = "Algoritma Analiz";
+                            ad.Kod = "BLM4006";
+                        }
                         else if (ad.DersAdi == "Matematik")
                         {
                             ad.DersAdi = "Matematik I";
