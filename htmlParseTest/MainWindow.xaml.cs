@@ -308,7 +308,7 @@ namespace htmlParseTest
                     writer.Write("," + ad.Kod);
                     
                     writer.Write("," + ad.DersAdi);
-                    if(ad.OgretmenId == "")
+                    if(ad.OgretmenId == null)
                     {
                         ad.OgretmenId = "-1";
                     }
