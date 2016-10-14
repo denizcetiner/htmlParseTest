@@ -308,6 +308,10 @@ namespace htmlParseTest
                     writer.Write("," + ad.Kod);
                     
                     writer.Write("," + ad.DersAdi);
+                    if(ad.OgretmenId == "")
+                    {
+                        ad.OgretmenId = "-1";
+                    }
                     writer.Write("," + ad.OgretmenId);
                     writer.Write("," + ad.Yariyil);
                     if(ad.YılDers == 2016)
